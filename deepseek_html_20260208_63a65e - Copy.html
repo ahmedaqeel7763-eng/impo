@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For Sarah 🤍</title>
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Georgia, serif;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #f5f5f5;
+  padding: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  max-width: 900px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+  z-index: 10;
+  position: relative;
+}
+
+.container.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+p {
+  font-size: 24px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+
+.container.revealed p {
+  opacity: 0.9;
+  transform: translateY(0);
+}
+
+.container.revealed p:nth-child(1) {
+  transition-delay: 0.3s;
+}
+
+.container.revealed p:nth-child(2) {
+  transition-delay: 0.6s;
+}
+
+h1 {
+  font-size: 38px;
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease 0.9s;
+}
+
+.container.revealed h1 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heart {
+  font-size: 45px;
+  margin: 20px 0;
+  opacity: 0;
+  transition: all 1s ease 0.6s;
+}
+
+.container.revealed .heart {
+  opacity: 1;
+  animation: pulse 1.5s infinite;
+}
+
+/* Reveal Button */
+.reveal-btn {
+  background: rgba(255, 105, 180, 0.9);
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  font-size: 22px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+  margin-top: 20px;
+}
+
+.reveal-btn:hover {
+  background: rgba(255, 105, 180, 1);
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(255, 105, 180, 0.6);
+}
+
+.reveal-btn.hidden {
+  display: none;
+}
+
+/* Music Control */
+.music-control {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.music-control:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.music-control i {
+  font-size: 28px;
+  color: #ff69b4;
+}
+
+/* Floating Hearts */
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-heart {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0;
+  bottom: -50px;
+  animation: floatUp linear forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+  p {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+  
+  h1 {
+    font-size: 32px;
+  }
+  
+  .reveal-btn {
+    padding: 16px 32px;
+    font-size: 20px;
+  }
+  
+  .music-control {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 20px;
+  }
+  
+  p {
+    font-size: 18px;
+  }
+  
+  h1 {
+    font-size: 28px;
+  }
+  
+  .heart {
+    font-size: 38px;
+  }
+}
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- Floating Hearts Background -->
+<div class="floating-hearts" id="floatingHearts"></div>
+
+<!-- Main Content -->
+<div class="container" id="messageContainer">
+  <p>
+    You have this beautiful way of making everything feel lighter and warmer just by being you.
+    I love your smile, your energy, and the way you turn simple moments into something special.
+  </p>
+  
+  <p>
+    Today is just a reminder of something I already know:
+    you're my favorite kind of calm and my favorite kind of chaos
+  </p>
+  
+  <div class="heart">💘</div>
+  
+  <h1>Happy Valentine's Day, Sarah ✨</h1>
+</div>
+
+<!-- Reveal Button -->
+<button class="reveal-btn" id="revealBtn">
+  <i class="fas fa-heart" style="margin-right: 10px;"></i>
+  Open My Message
+</button>
+
+<!-- Music Control -->
+<div class="music-control" id="musicControl">
+  <i class="fas fa-music"></i>
+</div>
+
+<!-- Audio for Background Music -->
+<audio id="backgroundMusic" loop>
+  <source src="https://assets.mixkit.co/music/preview/mixkit-a-very-happy-christmas-897.mp3" type="audio/mpeg">
+  <!-- Fallback music source - using a free piano track -->
+</audio>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const revealBtn = document.getElementById('revealBtn');
+  const messageContainer = document.getElementById('messageContainer');
+  const musicControl = document.getElementById('musicControl');
+  const backgroundMusic = document.getElementById('backgroundMusic');
+  const floatingHearts = document.getElementById('floatingHearts');
+  
+  // Initialize music state
+  let isMusicPlaying = false;
+  let hasStartedMusic = false;
+  
+  // Reveal message when button is clicked
+  revealBtn.addEventListener('click', function() {
+    // Hide the button
+    revealBtn.classList.add('hidden');
+    
+    // Show the message with fade-in effect
+    setTimeout(() => {
+      messageContainer.classList.add('revealed');
+    }, 100);
+    
+    // Start playing music (with user interaction)
+    if (!hasStartedMusic) {
+      playBackgroundMusic();
+      hasStartedMusic = true;
+    }
+    
+    // Create initial burst of hearts
+    createHeartBurst(15);
+  });
+  
+  // Music control toggle
+  musicControl.addEventListener('click', function() {
+    if (isMusicPlaying) {
+      pauseBackgroundMusic();
+    } else {
+      playBackgroundMusic();
+    }
+  });
+  
+  function playBackgroundMusic() {
+    backgroundMusic.volume = 0.3; // Set volume to 30%
+    backgroundMusic.play()
+      .then(() => {
+        isMusicPlaying = true;
+        musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+      })
+      .catch(error => {
+        console.log("Audio play failed:", error);
+        // If autoplay is blocked, show play button
+        musicControl.innerHTML = '<i class="fas fa-play"></i>';
+      });
+  }
+  
+  function pauseBackgroundMusic() {
+    backgroundMusic.pause();
+    isMusicPlaying = false;
+    musicControl.innerHTML = '<i class="fas fa-music"></i>';
+  }
+  
+  // Floating hearts animation
+  function createFloatingHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('floating-heart');
+    heart.innerHTML = '💖';
+    
+    // Random position
+    const leftPos = Math.random() * 100;
+    heart.style.left = `${leftPos}%`;
+    
+    // Random size
+    const size = 20 + Math.random() * 30;
+    heart.style.fontSize = `${size}px`;
+    
+    // Random animation duration
+    const duration = 8 + Math.random() * 12;
+    heart.style.animationDuration = `${duration}s`;
+    
+    // Random delay
+    const delay = Math.random() * 5;
+    heart.style.animationDelay = `${delay}s`;
+    
+    floatingHearts.appendChild(heart);
+    
+    // Remove heart after animation completes
+    setTimeout(() => {
+      heart.remove();
+    }, (duration + delay) * 1000);
+  }
+  
+  // Create a burst of hearts
+  function createHeartBurst(count) {
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        createFloatingHeart();
+      }, i * 100);
+    }
+  }
+  
+  // Create continuous hearts (fewer after initial burst)
+  setInterval(() => {
+    if (messageContainer.classList.contains('revealed')) {
+      createFloatingHeart();
+    }
+  }, 2000);
+  
+  // Create some initial subtle hearts in background
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => {
+      createFloatingHeart();
+    }, i * 800);
+  }
+  
+  // Add click-to-create-heart feature
+  document.addEventListener('click', function(e) {
+    if (e.target !== revealBtn && messageContainer.classList.contains('revealed')) {
+      createHeartAtPosition(e.clientX, e.clientY);
+    }
+  });
+  
+  function createHeartAtPosition(x, y) {
+    const heart = document.createElement('div');
+    heart.classList.add('floating-heart');
+    heart.innerHTML = '💘';
+    heart.style.left = `${x}px`;
+    heart.style.top = `${y}px`;
+    heart.style.fontSize = '28px';
+    heart.style.animationDuration = '6s';
+    
+    floatingHearts.appendChild(heart);
+    
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }
+});
+</script>
+
+</body>
+</html>
